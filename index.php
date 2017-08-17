@@ -4,7 +4,9 @@ header("Content-type:application/json");
 
 $json_flags = JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT | JSON_PRETTY_PRINT;
 
-print(json_encode($_REQUEST, $json_flags));
+if(in_array('url', $_REQUEST)){
+  print(json_encode(audit_get_data(audit_get_document($_REQUEST['url'])), $json_flags));
+}
 
 function audit_get_data($dom){
   return array(
